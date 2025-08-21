@@ -4,10 +4,18 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
-import roomRoutes from './routes/rooms.js';
-import bookingRoutes from './routes/booking.js';
-import availabilityRoutes from './routes/availability.js'; // Assuming you have this route
-import myBookingRoutes from './routes/mybooking.js'; // Assuming you have this route
+// import roomRoutes from './routes/rooms.js';
+// import bookingRoutes from './routes/booking.js';
+// import availabilityRoutes from './routes/availability.js'; // Assuming you have this route
+// import myBookingRoutes from './routes/mybooking.js'; // Assuming you have this route
+import roomTypeRoutes from './routes/roomTypeRoutes.js'; 
+import roomRoutes from './routes/roomRoutes.js'; // Assuming you have this route
+
+import bookingRoutes from "./routes/bookingRoutes.js";
+import availabilityRoutes from "./routes/availabilityRoutes.js";
+import serviceRoutes from "./routes/serviceRoutes.js";
+import serviceRequestRoutes from "./routes/serviceRequestRoutes.js";
+import assignRoomRouter from './routes/assignroomRouter.js'; // Import the assign room router
 
 
 const app = express();
@@ -39,11 +47,19 @@ app.get('/', (req, res) => {
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+// app.use('/api/rooms', roomRoutes);
+// app.use('/api/booking', bookingRoutes);
+// app.use('/api/availability', availabilityRoutes); // Assuming you have this route
+// // app.use('/api/rooms', roomRoutes);
+// app.use('/api/booking/my', myBookingRoutes); // Assuming you have this route
+
+app.use('/api/roomtypes', roomTypeRoutes);
 app.use('/api/rooms', roomRoutes);
-app.use('/api/booking', bookingRoutes);
-app.use('/api/availability', availabilityRoutes); // Assuming you have this route
-app.use('/api/rooms', roomRoutes);
-app.use('/api/booking/my', myBookingRoutes); // Assuming you have this route
+app.use("/api/bookings", bookingRoutes);
+app.use("/api/availability", availabilityRoutes);
+app.use("/api/services", serviceRoutes);
+app.use("/api/service-requests", serviceRequestRoutes);
+app.use('/api/staff', assignRoomRouter); // Use the assign room router
 
 
 // Start the server
